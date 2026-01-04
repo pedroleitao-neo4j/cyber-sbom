@@ -1,5 +1,7 @@
 # Software Bill of Materials (SBOM): Analysing Transitive Dependencies and Supply Chain Lineage
 
+![SBOM Analysis](headline.png)
+
 This notebook demonstrates how to perform **Software Bill of Materials (SBOM) Analysis**, building and extending on the [Vulnerability Prioritization and Exposure Management (VPEM)](https://github.com/pedroleitao-neo4j/cyber-vpem) use case graph in Neo4j. By mapping the recursive relationships between software libraries, build artifacts, and running applications, organizations can achieve full **Code-to-Cloud traceability**.
 
 This is a critical extension of standard vulnerability management, shifting the focus from top-level dependencies to the **hidden risks** buried deep within the software supply chain.
