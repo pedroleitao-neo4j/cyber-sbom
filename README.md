@@ -13,7 +13,22 @@ The SBOM graph highlights all artefacts that depend on potentially risky librari
 This example includes two main notebooks:
 
 1. **[Data Ingestion](loader.ipynb)**: Loads additional transitive dependency data into the existing VPEM graph, simulating a multi-tier software lineage.
-2. **[SBOM Analysis](sbom.ipynb)**: Demonstrates Cypher queries to identify vulnerabilities in deep dependencies and maps them to internet-facing production infrastructure.
+2. **[SBOM Analysis](sbom.ipynb)**: Demonstrates Cypher queries to identify vulnerabilities in deep dependencies and maps them to internet-facing 
+production infrastructure.
+
+### What is a Software Bill of Materials (SBOM) and Why Does It Matter?
+
+Think of a modern software application like a complex pre-packaged meal from a grocery store. The label on the back lists the ingredients—this is essentially what an **SBOM** is for software. It is a comprehensive, nested list of every "ingredient" (code library or component) used to build an application.
+
+In the digital world, developers rarely write every line of code from scratch; they use existing libraries to handle common tasks. These libraries often use *other* libraries, creating a deep and often invisible chain of dependencies.
+
+**SBOM Analysis** is critical because it provides clarity on:
+
+* **The "Hidden" Ingredients:** It reveals "transitive dependencies"—the components your software uses indirectly that you might not even know are there.
+* **Zero-Day Resilience:** When a new security flaw is discovered in a common library, an SBOM allows you to instantly see if any of your applications are affected, rather than spending weeks searching through codebases.
+* **Code-to-Cloud Visibility:** It bridges the gap between the development team (who builds the code) and the operations team (who runs it), showing exactly which production servers are running potentially risky "ingredients".
+
+By maintaining a clear, graph-based SBOM, organizations move from guessing their risk to having total **Code-to-Cloud traceability**, ensuring that when a problem is found, it can be isolated and fixed at the source immediately.
 
 ## Use Case Overview
 
