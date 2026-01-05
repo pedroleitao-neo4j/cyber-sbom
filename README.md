@@ -6,6 +6,10 @@ This notebook demonstrates how to perform **Software Bill of Materials (SBOM) An
 
 This is a critical extension of standard vulnerability management, shifting the focus from top-level dependencies to the **hidden risks** buried deep within the software supply chain.
 
+The SBOM graph highlights all artefacts that depend on potentially risky libraries or components, even if those dependencies are several layers deep. This enables security teams to identify and remediate vulnerabilities that traditional SBOM tools may overlook.
+
+![SBOM Graph](application-view-graph.png)
+
 This example includes two main notebooks:
 
 1. **[Data Ingestion](loader.ipynb)**: Loads additional transitive dependency data into the existing VPEM graph, simulating a multi-tier software lineage.
