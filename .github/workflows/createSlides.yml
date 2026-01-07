@@ -14,12 +14,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Marp Build (PPTX)
-        # Using the standard marp-cli-action without the @ symbol if the previous failed
-        uses: KoharaKazuya/marp-cli-action@v4.0.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          args: slides.md --pptx --allow-local-files -o slides.pptx
+          node-version: '20'
+
+      - name: Install Marp CLI
+        run: npm install -g @marp-team/marp-cli
+
+      - name: Build PPTX
+        run: |
+          marp slides.md --pptx --allow-local-files -o slides.pptx
         env:
+          # This tells Marp exactly where the Chrome binary is located on Ubuntu runners
           CHROME_PATH: /usr/bin/google-chrome
 
       - name: Commit and Push PPTX
