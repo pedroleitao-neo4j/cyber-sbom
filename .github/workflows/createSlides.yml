@@ -2,10 +2,10 @@ name: Generate Marp Slides
 on:
   push:
     paths:
-      - 'slides.md' # Only runs when this specific file changes
+      - 'slides.md'
 
 permissions:
-  contents: write # Allows the action to push the PPTX back to the repo
+  contents: write
 
 jobs:
   build:
@@ -15,7 +15,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Marp Build (PPTX)
-        uses: marp-team/marp-cli-action@v1.5.0
+        # Using the standard marp-cli-action without the @ symbol if the previous failed
+        uses: marp-team/marp-cli-action@v1
         with:
           args: slides.md --pptx --allow-local-files -o slides.pptx
         env:
@@ -26,6 +27,5 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add slides.pptx
-          # Only commit if the file actually changed to avoid infinite loops
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generate slides.pptx"
           git push
