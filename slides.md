@@ -80,7 +80,7 @@ Think of an application as a pre-packaged meal:
 
 ---
 
-# An Example Blast Radius Graph
+# The Blast Radius Graph
 
 ![drop-shadow center w:90%](application-view-graph.png)
 
