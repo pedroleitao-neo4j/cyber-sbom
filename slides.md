@@ -2,7 +2,7 @@
 marp: true
 footer: '![height:40px](https://dist.neo4j.com/wp-content/uploads/20230926084108/Logo_FullColor_RGB_TransBG.svg)  © Neo4j 2024'
 theme: default
-paginate: true
+paginate: false
 backgroundColor: #fff
 style: |
   section.title h1 {
