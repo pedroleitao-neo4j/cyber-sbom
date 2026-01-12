@@ -104,8 +104,52 @@ Think of an application as a pre-packaged meal:
 
 ---
 
-# System Integration & Output
-### The insights from this analysis flow into:
+# Key SBOM Queries
+### Transitive Risk Discovery (CVE → App)
+**Identify affected apps and their dependency chains for any CVE.**
+
+```cypher
+MATCH (v:CVE)-[:IDENTIFIED_IN]->(lib:Library)
+MATCH path = (lib)-[:DEPENDENCY_OF*1..3]->(art:BuildArtifact)-[:RUNNING_AS]->(app:Application)
+RETURN v.id AS cve,
+       lib.name AS vulnerable_lib,
+       app.name AS affected_app,
+       nodes(path) AS dependency_chain
+```
+
+---
+
+# Visualise Log4Shell Chain
+### Directed Graph of Dependency Paths
+**Example for CVE-2021-44228 (Log4Shell) from library to applications.**
+
+```cypher
+MATCH (v:CVE {id: 'CVE-2021-44228'})-[:IDENTIFIED_IN]->(lib:Library)
+MATCH path = (lib)-[:DEPENDENCY_OF*1..3]->(art:BuildArtifact)-[:RUNNING_AS]->(app:Application)
+RETURN path
+```
+
+Render paths with `networkx` + `matplotlib` to show lineage and relationship types.
+
+---
+
+# Reachability to Internet-Facing Hosts
+### Full Code-to-Cloud Trace
+**Trace vulnerable libs to running servers with public IPs for patch urgency.**
+
+```cypher
+MATCH (v:CVE)-[:IDENTIFIED_IN]->(l:Library)
+MATCH path = (l)-[:DEPENDENCY_OF*1..3]->(:BuildArtifact)-[:RUNNING_AS]->(app:Application)-[:HOSTED_ON]->(ins:ComputeInstance)
+WHERE ins.public_ip IS NOT NULL
+RETURN v.id AS cve,
+       app.name AS app,
+       ins.name AS server,
+       ins.public_ip AS ip
+```
+
+
+# Outward System Integration
+### The insights from this analysis **flow into**:
 - **DevSecOps (CI/CD):** Automatically fail builds that introduce critical transitive risks.
 - **Security Operations (SOAR):** Prioritize patching for internet-facing hosts.
 - **Compliance:** Generate "Full Lineage" reports for regulatory requirements (e.g., Executive Order 14028).
@@ -114,4 +158,4 @@ Think of an application as a pre-packaged meal:
 
 # Questions?
 **GitHub:** [pedroleitao-neo4j/cyber-sbom](https://github.com/pedroleitao-neo4j/cyber-sbom)
-**Reference:** VPEM (Vulnerability Prioritization and Exposure Management)
+**Reference:** [VPEM (Vulnerability Prioritization and Exposure Management)](https://github.com/pedroleitao-neo4j/cyber-vpem)
