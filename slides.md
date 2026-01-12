@@ -147,6 +147,7 @@ RETURN v.id AS cve,
        ins.public_ip AS ip
 ```
 
+---
 
 # Outward System Integration
 ### The insights from this analysis **flow into**:
